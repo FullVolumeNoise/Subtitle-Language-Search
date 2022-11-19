@@ -1,0 +1,43 @@
+body{
+  margin: 4%;
+  background-color: #00A6A6;
+  
+}
+
+nav {
+  background-color: #BBDEF0;
+  padding: 1%;
+  font-size: 16pt;
+ 
+}
+
+a {
+  text-decoration-line: none;
+}
+
+a:hover{
+  color: #f49f0a;
+}
+
+header{
+  text-align: center;
+}
+
+input {
+  padding: 10px 20px;
+}
+
+.movie_entry{
+
+  border-style: dashed;
+  padding: 2%;
+  background-color: #BBDEF0;
+}
+
+/**
+.media_database{
+  padding: 1%;
+  justify-content: space-between;
+  display: flex;
+}
+*/
