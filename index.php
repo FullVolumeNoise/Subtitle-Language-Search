@@ -10,7 +10,52 @@
     <nav> <a href="index.php" style="padding-right:30px">Database</a> <a href="about.html" style="padding-right:30px">About</a> <a href="add_to_table.php" style="padding-right:30px">Add to Database</a> </nav>
   </header>
 
-  
+  <div class="search">
+  <form action="index.php" method="get">
+      <input type="text" placeholder="Search.." name="search" value="search">
+      <button type="submit" name="Submit"  value="Send_Form">Search</button>
+    </form>
+    <?php 
+      include "../../dbCon.php";
+
+      if(!empty($_GET['search'])){
+        $search = $_GET['search'];
+        $sql = "SELECT * FROM `mediaDatabase` WHERE `title` LIKE '%$search%'";
+
+        if($results = $mysqli->query($sql)){
+          echo 'Showing results for ' .$search;
+         
+          if($results){
+           while($rowHolder = mysqli_fetch_array($results, MYSQLI_ASSOC)){
+             $records[] = $rowHolder;
+             }
+           }
+           var_dump($records); 
+     
+           $things = array();
+           
+     
+           foreach($records as $name=>$value){
+               
+               $extra_output = '<div class="movie_entry"> <h3>Title: ' . $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><h4>Languages</h4><p> ' .
+               $value['languages'] . '</p> </div>' ;
+               
+             echo $extra_output;
+         }
+       } else{
+         echo 'issue with query';
+       }
+
+
+      } 
+
+
+    ?>
+
+
+
+  </div>
+
 <div class="filter">
     <form action="index.php" method="post">
       <input type="radio" name="services" value="Netflix">
