@@ -5,21 +5,23 @@
   <link rel="stylesheet" href="style.css">
   <title>Subtitle Language Search </title>
 </head>
-<body>
-  <header> <h1>Find a subtitle language today!</h1>
-    <nav> <a href="index.php" style="padding-right: 25px; ">Database</a> <a href="about.html">About</a> <a href="add_to_table.php">Add to Database</a></nav>
+<header> <h1>~ Find a subtitle language today! ~</h1>
+    <nav> <a href="index.php" style="padding-right:30px">Database</a> <a href="about.html" style="padding-right:30px">About</a> <a href="add_to_table.php" style="padding-right:30px">Add to Database</a> </nav>
   </header>
-
+<body>
+ 
+    <br>
   <div class="new_media"> 
-    <form action="add_to_table.php" method="get"> Have a show/movie to submit? Enter the data and add to the database? <br/>
+    <form action="add_to_table.php" method="get"> <h3>Have a show/movie to submit? Enter the data and add to the database!</h3> <br/>
       <!--Name to be entered into table -->
-      <label>Name of TV show or movie:</label> <input type="text" id="name" name="name"> </input><br/><br/>
+      <label>Name of TV show or movie:</label> <input type="text" id="name" name="name" placeholder="TV show or movie" required> </input><br/><br/>
       <!--Comment to be entered into table -->
-      <label>Languages:</label> <input type="text" id="langs" name="langs">  </input>
+      <label>Languages:</label> <br>
+      <textarea id="langs" name="langs" placeholder="Languages the subtitles are available in" required></textarea>
       <br/><br/>
-      <label>Platform:</label> <input type="text" id="plat" name="plat">  </input>
+      <label>Platform:</label> <input type="textarea" id="plat" name="plat" placeholder="Platform the TV show/movie is on" required>  </input>
       <br/><br/>
-      <input type="submit" value="Add to the List">
+      <button type="submit" value="Add to the database">Add to the database</button>
     </form>
 
 <?php 
@@ -42,6 +44,7 @@
     }
 ?>
   </div>
-  
+
 </body>
+<footer> This project is part of the M&T 2022 Hackathon. </footer>
   </html>
