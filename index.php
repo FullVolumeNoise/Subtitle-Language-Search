@@ -20,11 +20,13 @@
   //echo $_GET["search"];
   if(!empty($_GET)){
     $searchPhrase = $_GET["search"];
-    $sql = 'select * from `mediaDatabase` WHERE title=' . $searchPhrase;
+    $sql = 'SELECT * from `mediaDatabase` WHERE title IN ($searchPhrase)';
     echo $sql;
   }
   ?>
 
+  
+</div>
 
   <div class="media_database">
     
@@ -53,19 +55,17 @@
 
       //$things = array_keys($records);
       //print_r($records);
-      $output = '<div class="movie_entry"> <h3>Title: ';
+     
       foreach($records as $name=>$value){
        
           
-           // print_r($things);
-          //echo $value['title'];
-          //echo $name[0];
-          $extra_output .= $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><br> <h4>Languages</h4><br> <p> ' .
+          $extra_output = '<div class="movie_entry"> <h3>Title: ' . $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><br> <h4>Languages</h4><br> <p> ' .
            $value['languages'] . '</p> </div>' ;
           //things[2]
-        
+        echo $extra_output;
     }
-      echo $output .= $extra_output;
+   
+     
       
 
 ?>
