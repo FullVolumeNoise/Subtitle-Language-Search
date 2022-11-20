@@ -7,59 +7,56 @@
 </head>
 <body>
   <header> <h1>Find a subtitle language today!</h1>
-    <nav> <a href="index.php" style="padding-right: 25px; ">Database</a> <a href="about.html">About</a> </nav>
+    <nav> <a href="index.php" style="padding-right:30px">Database</a> <a href="about.html" style="padding-right:30px">About</a> <a href="add_to_table.php" style="padding-right:30px">Add to Database</a> </nav>
   </header>
 
-  <div class="new_media"> 
-    <form action="index.php" method="get"> Have a show/movie to submit? Enter the data and add to the database? <br/>
-      <!--Name to be entered into table -->
-      <label>Name of TV show or movie:</label> <input type="text" id="name" name="name"> </input><br/><br/>
-      <!--Comment to be entered into table -->
-      <label>Languages:</label> <input type="text" id="langs" name="langs">  </input>
-      <br/><br/>
-      <label>Platform:</label> <input type="text" id="plat" name="plat">  </input>
-      <br/><br/>
-      <input type="submit" value="Add to the List">
-    </form>
-<?php 
-    include "../../dbCon.php";
-  if ($mysqli) {
-    //if the name and comment fields aren't empty, then do the next thing
-    if( !empty($_GET['name']) && !empty($_GET['langs']) && !empty($_GET['plat'])){
-      //inserts the input into the table
-      $stmt=$mysqli->prepare("insert into mediaDatabase (title, languages, platforms) values (?, ?, ?)");
-      $stmt->bind_param("sss",$_GET['name'],$_GET['langs'], $_GET['plat']);
-      $stmt->execute();
-      $stmt->close();
-    }
-    $res=$mysqli->query('select name, langs, plat from mediaDatabase');
-    if($res){
-      while($rowHolder = mysqli_fetch_array($res,MYSQLI_ASSOC)){
-        $records[] = $rowHolder;
-      }
-    }
-  }
-
-
-  
-?>
-  </div>
   
 <div class="filter">
-    <form>
-      <input type="radio" name="services" value="services">
+    <form action="index.php" method="post">
+      <input type="radio" name="services" value="Netflix">
 				<label for="netflix">Netflix</label><br>
-				<input type="radio" name="services" value="hulu">
+				<input type="radio" name="services" value="Hulu">
 				<label for="hulu">Hulu</label><br>
 
 				<p>
-					<input type="submit"  name="Submit"  value="Send_Form" action="index.php" method="post" />
+					<input type="submit"  name="Submit"  value="Send_Form" />
 				</p>
     </form>
 
     <?php
       include "../../dbCon.php";
 
+     
+     
+      if(!empty($_POST['services'])){
+        $service = $_POST['services'];
+      $sql = "SELECT * FROM `mediaDatabase` WHERE `platforms` = '$service'";
+      
+
+      if($results = $mysqli->query($sql)){
+         echo 'Showing results for ' .$service;
+        
+         if($results){
+          while($rowHolder = mysqli_fetch_array($results, MYSQLI_ASSOC)){
+            $records[] = $rowHolder;
+            }
+          }
+          var_dump($records); 
+    
+          $things = array();
+          
+    
+          foreach($records as $name=>$value){
+              
+              $extra_output = '<div class="movie_entry"> <h3>Title: ' . $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><h4>Languages</h4><p> ' .
+              $value['languages'] . '</p> </div>' ;
+              
+            echo $extra_output;
+        }
+      } else{
+        echo 'issue with query';
+      }
+    }
 
       /*
       $streaming = $_GET['services'];
@@ -101,7 +98,7 @@
 
       foreach($records as $name=>$value){
           
-          $extra_output = '<div class="movie_entry"> <h3>Title: ' . $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><br> <h4>Languages</h4><br> <p> ' .
+          $extra_output = '<div class="movie_entry"> <h3>Title: ' . $value['title'] . '</h3> <h4>Platform: ' .$value['platforms']. '</h4><h4>Languages</h4><p> ' .
            $value['languages'] . '</p> </div>' ;
           
         echo $extra_output;

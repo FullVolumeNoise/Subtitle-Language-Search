@@ -11,6 +11,23 @@ nav {
  
 }
 
+.media_database{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: stretch;
+}
+
+.movie_entry{
+
+  border-style: dashed;
+  padding: 2%;
+  background-color: #BBDEF0;
+
+  flex-basis: auto;
+  margin: 8px;
+}
+
 a {
   text-decoration-line: none;
 }
@@ -27,12 +44,7 @@ input {
   padding: 10px 20px;
 }
 
-.movie_entry{
 
-  border-style: dashed;
-  padding: 2%;
-  background-color: #BBDEF0;
-}
 
 /**
 .media_database{
